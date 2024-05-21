@@ -3,29 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found</title>
+    <title>Redirecting...</title>
+    <script>
+        // Redirect all requests to xss.js
+        window.location.replace("/xss.js");
+    </script>
 </head>
 <body>
-    <h1>Page Not Found</h1>
-    <p>Redirecting...</p>
-    <script>
-        // Create a new script element
-        var xssScript = document.createElement('script');
-
-        // Set the source of the script to 'xss.js'
-        xssScript.src = '/xss.js';
-
-        // Add event listeners to handle script loading
-        xssScript.onload = function() {
-            console.log("xss.js script loaded successfully");
-        };
-
-        xssScript.onerror = function() {
-            console.error("Failed to load xss.js script");
-        };
-
-        // Append the script element to the body
-        document.body.appendChild(xssScript);
-    </script>
+    <p>Redirecting to xss.js...</p>
 </body>
 </html>
