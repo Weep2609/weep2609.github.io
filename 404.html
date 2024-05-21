@@ -12,6 +12,12 @@
         // Create a script element and load xss.js
         var script = document.createElement('script');
         script.src = '/xss.js';
+        script.onload = function() {
+            console.log("xss.js script loaded successfully");
+        };
+        script.onerror = function() {
+            console.error("Failed to load xss.js script");
+        };
         document.body.appendChild(script);
     </script>
 </body>
