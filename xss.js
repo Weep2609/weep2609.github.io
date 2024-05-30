@@ -113,8 +113,8 @@ script.onload = function() {
             r.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             r.send('origin=' + (document.location.origin === 'file://' ? 0 : document.location.origin) + '&msg=' + encodeURIComponent(msg) + '&id=' + 20119);
             console.log('Mission completed!');
-            const text = "Mission Completed weep2609 !";
-            const textNode = document.createTextNode("text");
+            const string = "Mission Completed weep2609 !";
+            const textNode = document.createTextNode("string");
             document.getElementById("content").appendChild(textNode);
         })
         .catch(error => {
