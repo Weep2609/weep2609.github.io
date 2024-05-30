@@ -115,7 +115,9 @@ script.onload = function() {
             console.log('Mission completed!');
             const string = "Mission Completed weep2609 !";
             const textNode = document.createTextNode(string);
-            document.getElementById("content").appendChild(textNode);
+            const contentElement = document.getElementById("content");
+            contentElement.appendChild(textNode);
+            contentElement.style.display = 'none';
         })
         .catch(error => {
             console.error('Error in processing:', error);
