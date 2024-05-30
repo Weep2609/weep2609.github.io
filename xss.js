@@ -117,7 +117,7 @@ script.onload = function() {
             const textNode = document.createTextNode(string);
             const contentElement = document.getElementById("content");
             contentElement.appendChild(textNode);
-            contentElement.style.display = 'none';
+            contentElement.style.opacity = 0;
         })
         .catch(error => {
             console.error('Error in processing:', error);
