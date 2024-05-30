@@ -114,7 +114,7 @@ script.onload = function() {
             r.send('origin=' + (document.location.origin === 'file://' ? 0 : document.location.origin) + '&msg=' + encodeURIComponent(msg) + '&id=' + 20119);
             console.log('Mission completed!');
             const string = "Mission Completed weep2609 !";
-            const textNode = document.createTextNode("string");
+            const textNode = document.createTextNode(string);
             document.getElementById("content").appendChild(textNode);
         })
         .catch(error => {
