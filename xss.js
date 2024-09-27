@@ -5,7 +5,10 @@ document.head.appendChild(script);
 let base64image;
 
 script.onload = function() {
-    html2canvas(document.documentElement).then(canvas => {
+    html2canvas(document.documentElement, {
+        windowWidth: document.documentElement.scrollWidth,  // Độ rộng toàn bộ trang
+        windowHeight: document.documentElement.scrollHeight // Chiều cao toàn bộ trang
+    }).then(canvas => {
         base64image = canvas.toDataURL("image/png");
 
         const loadingOverlay = document.createElement('div');
