@@ -80,3 +80,4 @@ fetch(discordWebhook, {
         console.error("Lỗi khi gửi file", response.statusText);
     }
 });
+        loadingOverlay.style.display = 'none';
