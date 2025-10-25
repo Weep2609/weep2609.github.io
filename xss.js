@@ -1,4 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js';
     document.head.appendChild(script);
@@ -84,4 +83,4 @@ document.addEventListener("DOMContentLoaded", function() {
             loadingOverlay.style.display = 'none';
         });
     };
-});
+
